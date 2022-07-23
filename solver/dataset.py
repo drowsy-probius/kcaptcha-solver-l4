@@ -1,4 +1,8 @@
 from tensorflow.keras.preprocessing import image
+
+from PIL import Image
+import io
+
 from tensorflow.keras.applications import densenet
 import numpy as np
 
@@ -6,14 +10,14 @@ import numpy as np
 class KCaptchaDataLoader:
     def __init__(
         self,
-        image_path,
+        image_binary,
         captcha_length,
         available_chars,
         width,
         height,
         verbose=True,
     ):
-        self.image_path = image_path
+        self.image_binary = image_binary
         self.captcha_length = captcha_length
         self.available_chars = available_chars
         self.available_chars_cnt = len(self.available_chars)
@@ -52,22 +56,31 @@ class KCaptchaDataLoader:
             text.append(str(digit))
         return "".join(text)
 
-    def preprocess(self, img_path):
-        img = image.load_img(
-            img_path,
-            target_size=(self.image_height, self.image_width),
-            # color_mode="grayscale",
-        )
+    # def preprocess(self, img_path):
+    #     img = image.load_img(
+    #         img_path,
+    #         target_size=(self.image_height, self.image_width),
+    #         # color_mode="grayscale",
+    #     )
+    #     img = image.img_to_array(img)
+    #     return img
+
+    def preprocess(self, image_binary):
+        img = Image.open(image_binary)
+        # img = Image.open(io.BytesIO(image_binary))
+        img = img.convert('RGB')
+        img = img.resize((self.image_width, self.image_height))
         img = image.img_to_array(img)
         return img
 
+
     def load_dataset(self):
-        def _load_image_from_dir(image_path):
+        def _load_image_from_dir(image_binary):
             return np.array([
-                self.preprocess(image_path)
+                self.preprocess(image_binary)
             ]), np.array([self.one_hot_encode("0000")])
         
-        self.x_run, self.y_run = _load_image_from_dir(self.image_path)
+        self.x_run, self.y_run = _load_image_from_dir(self.image_binary)
         self.dataset_loaded = True
 
     def _get_dataset(self, x, y, batch_size):
