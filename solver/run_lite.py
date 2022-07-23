@@ -42,6 +42,5 @@ def main(captcha_image):
 
   output_data = interperter.get_tensor(output_details["index"])[0]
   output_data = decode_prediction(output_data, available_chars, captcha_length)
-  print(output_data)
   return output_data
 

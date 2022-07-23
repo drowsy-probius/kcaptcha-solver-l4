@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -121,3 +122,41 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'colored': {
+            '()': 'colorlog.ColoredFormatter',  # colored output
+
+            # --> %(log_color)s is very important, that's what colors the line
+            'format': '%(log_color)s[%(module)20s][%(levelname)7s] %(asctime)s :: %(message)s'
+        },
+        'standard': {
+            'format': '[{asctime}][{module}][{levelname}] {message}',
+            'style': '{',
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'colorlog.StreamHandler',
+            'formatter': 'colored',
+        },
+    },
+
+    'loggers': {
+        'app': {
+            'handlers': ['console'],
+            'level':  os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            'propagate': True,
+        },
+        'django': {
+            'handlers': ['console'],
+            'level':  os.getenv('DJANGO_LOG_LEVEL', 'WARNING'),
+            'propagate': False,
+        }
+    },
+}
