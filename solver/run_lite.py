@@ -3,13 +3,6 @@ import numpy as np
 import tflite_runtime.interpreter as tflite
 import os
 
-interperter = tflite.Interpreter(model_path=os.path.join(os.path.dirname(os.path.realpath(__file__)), "model.tflite"))
-interperter.allocate_tensors() 
-
-input_details = interperter.get_input_details()[0]
-output_details = interperter.get_output_details()[0]
-
-
 def decode_prediction(predicted, char_set, length=2):
   l = len(char_set)
   chars = []
@@ -32,6 +25,12 @@ def main(captcha_image):
     width=width,
     height=height,
   )
+
+  interperter = tflite.Interpreter(model_path=os.path.join(os.path.dirname(os.path.realpath(__file__)), "model.tflite"))
+  interperter.allocate_tensors() 
+
+  input_details = interperter.get_input_details()[0]
+  output_details = interperter.get_output_details()[0]
 
   valset, val_size = data_loader.get_input()
 
