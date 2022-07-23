@@ -18,8 +18,8 @@ echo "    Activate python venv"
 source $VENV_ACTIVATE
 
 echo "    Install requirements"
-python -m pip install -r requirements.txt
-python manage.py migrate
+python3 -m pip install -r requirements.txt
+python3 manage.py migrate
 
 echo "    Run server"
-python manage.py runserver 0.0.0.0:8000
+python3 manage.py runserver 0.0.0.0:8000
