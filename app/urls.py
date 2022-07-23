@@ -19,15 +19,15 @@ from django.urls import path
 from solver import captchar_solver
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('kcaptchar/', captchar_solver)
+    # path('admin/', admin.site.urls),
+    path('kcaptcha/', captchar_solver)
 ]
 
 """
-kcaptchar API usage example in python
+kcaptcha API usage example in python
 
 import os
-url = 'http://host:port/kcaptchar'
+url = 'http://host:port/kcaptcha'
 
 with open(path_img, 'rb') as img:
   name_img= os.path.basename(path_img)
@@ -39,10 +39,10 @@ with open(path_img, 'rb') as img:
 
 
 import requests
-url = 'http://host:port/kcaptchar'
+url = 'http://host:port/kcaptcha'
 files = {'image': open('test.jpg', 'rb')}
 requests.post(url, files=files)
 
 
-curl -F image=@test.jpg 'http://host:port/kcaptchar'
+curl -F image=@test.jpg 'http://host:port/kcaptcha'
 """

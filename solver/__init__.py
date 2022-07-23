@@ -18,7 +18,13 @@ def captchar_solver(request):
       "result": "????"
     }
 
+    if "image" not in request.FILES:
+      raise Exception("image binary should be in files!")
+
     image_binary = request.FILES["image"]
+    if image_binary.size > 10000:
+      raise Exception("image is too large. max size is 160x60")
+    
     # image_binary = b64encode(image_binary.read())
     answer = main(image_binary)
 
@@ -28,4 +34,4 @@ def captchar_solver(request):
     return HttpResponse(json.dumps(response))
   except Exception as e:
     print(traceback.format_exc())
-    return HttpResponseBadRequest(str(e))
+    return HttpResponseBadRequest(e)
