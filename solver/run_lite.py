@@ -1,8 +1,9 @@
 import solver.dataset as dataset
 import numpy as np
 import tflite_runtime.interpreter as tflite
+import os
 
-interperter = tflite.Interpreter(model_path="./solver/model.tflite")
+interperter = tflite.Interpreter(model_path=os.path.join(os.path.dirname(os.path.realpath(__file__)), "model.tflite"))
 interperter.allocate_tensors() 
 
 input_details = interperter.get_input_details()[0]
