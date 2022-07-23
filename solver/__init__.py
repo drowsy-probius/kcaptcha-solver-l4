@@ -21,14 +21,14 @@ def get_client_ip(request):
     return ip
 
 def captchar_solver(request):
-  try:
-    start = current_milli_time()
-    response = {
-      "success": False, 
-      "response_time": 0,
-      "result": "????"
-    }
+  start = current_milli_time()
+  response = {
+    "success": False, 
+    "response_time": 0,
+    "result": "????"
+  }
 
+  try:
     if "image" not in request.FILES:
       raise Exception("image binary should be in files!")
 
@@ -45,5 +45,7 @@ def captchar_solver(request):
     response["response_time"] = current_milli_time() - start
     return HttpResponse(json.dumps(response))
   except Exception as e:
+    response["response_time"] = current_milli_time() - start
+    response["result"] = str(e)
     logger.info(traceback.format_exc())
-    return HttpResponseBadRequest(e)
+    return HttpResponseBadRequest(json.dumps(response))
