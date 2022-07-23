@@ -36,16 +36,13 @@ def decode_prediction(predicted, char_set, length=2):
 
     return "".join(chars)
 
-
-def main():
-    args = parse_args()
-
-    image_path = args.image
-    captcha_length = args.length
+def main(captcha_image, captcha_length=4, pretrained_model="model.tflite"):
+    image_path = captcha_image
+    captcha_length = captcha_length
     available_chars = "0123456789"
     width = 160
     height = 60
-    base_model_path = args.model
+    base_model_path = pretrained_model
 
 
     data_loader = dataset.KCaptchaDataLoader(
@@ -62,7 +59,6 @@ def main():
     input_details = interperter.get_input_details()[0]
     output_details = interperter.get_output_details()[0]
 
-
     valset, val_size = data_loader.get_input()
 
     images = valset[0][0]
@@ -73,7 +69,13 @@ def main():
     output_data = interperter.get_tensor(output_details["index"])[0]
     output_data = decode_prediction(output_data, available_chars, captcha_length)
     print(output_data)
+    return output_data
 
 
 if __name__ == "__main__":
-    main()
+    args = parse_args()
+    main(
+        args.image,
+        args.length,
+        args.model,
+    )
