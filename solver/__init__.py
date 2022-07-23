@@ -9,6 +9,14 @@ from .run_lite import main
 def current_milli_time():
   return time.time() * 1000
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 def captchar_solver(request):
   try:
     start = current_milli_time()
@@ -17,6 +25,8 @@ def captchar_solver(request):
       "response_time": 0,
       "result": "????"
     }
+
+    print(get_client_ip(request))
 
     if "image" not in request.FILES:
       raise Exception("image binary should be in files!")
