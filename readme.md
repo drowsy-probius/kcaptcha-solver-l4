@@ -1,5 +1,55 @@
 ### Forked from [kcaptcha-solver](https://github.com/ryanking13/kcaptcha-solver)
 
+# requirements
+
+- Python 3.8 virtual environment
+Not working in Python 3.9 or later due to `tflite_runtime` dependency.
+
+# how to run server
+this app is not suitable for production.
+
+```bash
+# run below line in root directory of this repository
+python3.8 -m venv venv
+
+# activate venv
+source ./venv/bin/activate
+
+# install dependencies
+pip install -r requirements.txt
+
+# run server
+# server running on 0.0.0.0:8000
+# 
+# it gives some INFO or WARNINGs but
+# that is not matter for development server
+./scripts/run.server.sh
+```
+
+# usage
+
+## curl in bash
+```bash
+# NOTE: trailing `/`
+curl -F image=@./solver/7286.jpg localhost:8000/kcaptcha/
+
+# returns
+# {"success": true, "response_time": 60.352783203125, "result": "7286"}
+```
+
+## python requests
+```python
+import requests
+
+res = requests.post(
+  "http://localhost:8000/kcaptcha/",
+  files={
+    "image": open("./solver/7286.jpg", "rb")
+  }
+)
+print(res.json())
+# {"success": true, "response_time": 60.352783203125, "result": "7286"}
+```
 
 -------
 
