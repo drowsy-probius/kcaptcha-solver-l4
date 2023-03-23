@@ -3,10 +3,12 @@
 # requirements
 
 - Python 3.8 virtual environment
-Not working in Python 3.9 or later due to `tflite_runtime` dependency.
+> Not working in Python 3.9 or later due to `tflite_runtime` dependency.
+
+- and some packages in `requiements.txt`
 
 # how to run server
-this app is not suitable for production.
+This app is not suitable for production.
 
 ```bash
 # run below line in root directory of this repository
@@ -21,8 +23,7 @@ pip install -r requirements.txt
 # run server
 # server running on 0.0.0.0:8000
 # 
-# it gives some INFO or WARNINGs but
-# that is not matter for development server
+# it gives several INFO or WARNINGs
 ./scripts/run.server.sh
 ```
 
