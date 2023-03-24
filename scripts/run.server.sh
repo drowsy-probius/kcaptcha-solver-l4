@@ -4,5 +4,5 @@ SRC_DIR="$SCRIPT_DIR/.."
 
 cd $SRC_DIR
 
-python manage.py migrate
+# python manage.py migrate
 python manage.py runserver 0.0.0.0:8000
