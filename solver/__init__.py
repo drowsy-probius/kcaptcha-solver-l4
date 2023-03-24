@@ -17,7 +17,7 @@ def get_client_ip(request):
       ip = request.META.get('REMOTE_ADDR')
     return ip
 
-def captchar_solver(request):
+def captcha_solver(request):
   start = current_milli_time()
   response = {
     "success": False, 
