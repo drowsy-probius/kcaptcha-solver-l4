@@ -1,9 +1,6 @@
-from base64 import b64encode
 import json, time, traceback
 from django.http import HttpResponse, HttpResponseBadRequest
 
-import numpy as np
-import tflite_runtime.interpreter as tflite
 from .run_lite import main
 
 import logging

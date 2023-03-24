@@ -1,10 +1,7 @@
 from tensorflow.keras.preprocessing import image
-
-from PIL import Image
-import io
-
 from tensorflow.keras.applications import densenet
 import numpy as np
+from PIL import Image
 
 
 class KCaptchaDataLoader:

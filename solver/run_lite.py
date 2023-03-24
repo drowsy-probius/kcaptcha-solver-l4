@@ -17,7 +17,7 @@ def main(captcha_image):
   available_chars = "0123456789"
   width = 160
   height = 60
-
+  
   data_loader = dataset.KCaptchaDataLoader(
     image_binary=image_binary,
     captcha_length=captcha_length,
