@@ -22,9 +22,26 @@ pip install -r requirements.txt
 
 # run server
 # server running on 0.0.0.0:8000
-# 
-# it gives several INFO or WARNINGs
 ./scripts/run.server.sh
+# or
+python manage.py runserver 0.0.0.0:8000
+```
+
+
+```bash
+# and it may gives below info or warnings, but it works...
+Performing system checks...
+
+2023-03-24 07:31:47.833276: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-03-24 07:31:47.885463: I tensorflow/tsl/cuda/cudart_stub.cc:28] Could not find cuda drivers on your machine, GPU will not be used.
+2023-03-24 07:31:47.885971: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2023-03-24 07:31:48.671494: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+System check identified no issues (0 silenced).
+March 24, 2023 - 07:31:49
+Django version 4.1.7, using settings 'app.settings'
+Starting development server at http://0.0.0.0:8000/
+Quit the server with CONTROL-C.
 ```
 
 # usage
